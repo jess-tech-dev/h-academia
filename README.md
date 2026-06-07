@@ -1,8 +1,8 @@
 # h-academia
 H Academia is an online learning platform by Higherjess Business dedicated to helping students improve their English communication skills through interactive lessons, practical exercises, and modern learning resources.
-H Academia is an online educational platform developed by Higherjess Business. Our mission is to make English learning accessible, practical, and engaging for students worldwide.
-The platform provides:
-English speaking practice
+H Academia is an online educational platform developed by Higherjess Business. Our mission is to make English and French learning accessible, practical, and engaging for students worldwide.
+The platform provides both English and French:
+speaking practice
 Vocabulary development
 Grammar lessons
 Interactive learning resources
