@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Examination - academia.higherjess.com</title>
+    <style>
+        :root {
+            --primary-color: #2b6cb0;
+            --secondary-color: #3182ce;
+            --background-color: #f7fafc;
+            --card-background: #ffffff;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --success-color: #48bb78;
+            --error-color: #f56565;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        .meta-info {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .meta-info span {
+            margin: 0 15px;
+            display: inline-block;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .setup-container, .quiz-container, .result-container {
+            background: var(--card-background);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .setup-container h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        select, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 6px;
+            border: 2px solid var(--border-color);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        select:focus {
+            border-color: var(--secondary-color);
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .question-card {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .question-card:last-child {
+            border-bottom: none;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: #edf2f7;
+        }
+
+        .option-label input {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--success-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .result-score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .feedback-correct {
+            background-color: #c6f6d5 !important;
+            border-color: #48bb78 !important;
+        }
+
+        .feedback-wrong {
+            background-color: #fed7d7 !important;
+            border-color: #f56565 !important;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #718096;
+            font-size: 0.9rem;
+            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>academia.higherjess.com</h1>
+        <div class="meta-info">
+            <span><strong>Course:</strong> 🇺🇸 English</span>
+            <span><strong>Teacher:</strong> Jessy Kalanga</span>
+            <span><strong>Date:</strong> June 24th, 2026</span>
+            <span><strong>Place:</strong> 🇨🇩 Kinshasa, Democratic Republic of the Congo</span>
+        </div>
+    </header>
+
+    <main>
+        <!-- STEP 1: Student Selection -->
+        <div id="setup-section" class="setup-container">
+            <h2>Welcome to your English Examination</h2>
+            <p>Please select your name to begin the test:</p>
+            <select id="student-select">
+                <option value="" disabled selected>-- Choose your name --</option>
+                <option value="Mr Baby">Mr Baby</option><option value="Macha-Ruth">Macha-Ruth</option><option value="Christian">Christian</option><option value="Bozy">Bozy</option><option value="Keren">Keren</option>
+            </select>
+            <button id="start-btn">Start Examination</button>
+        </div>
+
+        <!-- STEP 2: Quiz Form -->
+        <div id="quiz-section" class="quiz-container hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span id="student-display" style="font-weight: bold; color: var(--primary-color);"></span>
+                <span id="progress-text">Question 1 of 100</span>
+            </div>
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+            </div>
+
+            <form id="quiz-form">
+                <div id="questions-wrapper"></div>
+                <button type="submit" id="submit-btn">Submit Examination</button>
+            </form>
+        </div>
+
+        <!-- STEP 3: Results Dashboard -->
+        <div id="result-section" class="result-container hidden">
+            <h2>Examination Results</h2>
+            <p id="result-welcome"></p>
+            <div class="result-score" id="score-display">0 / 100</div>
+            <p id="result-feedback" style="text-align: center; font-size: 1.2rem; font-weight: 500;"></p>
+            <button id="review-btn">Review My Answers</button>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 academia.higherjess.com - All Rights Reserved.
+    </footer>
+
+    <script>
+        const questions = [{'q': "Choose the correct article: 'I saw ___ apple on the table.'", 'o': ['a', 'an', 'the', 'no article'], 'a': 'an'}, {'q': "Choose the correct article: 'He is ___ honest man.'", 'o': ['a', 'an', 'the', 'no article'], 'a': 'an'}, {'q': "Choose the correct article: '___ moon looks beautiful tonight.'", 'o': ['A', 'An', 'The', 'no article'], 'a': 'The'}, {'q': "Choose the correct article: 'She wants to buy ___ new car.'", 'o': ['a', 'an', 'the', 'no article'], 'a': 'a'}, {'q': "Choose the correct article: 'Paris is ___ capital of France.'", 'o': ['a', 'an', 'the', 'no article'], 'a': 'the'}, {'q': "Choose the correct article: 'I love listening to ___ music.'", 'o': ['a', 'an', 'the', 'no article'], 'a': 'no article'}, {'q': "Choose the correct article: 'We stayed at ___ excellent hotel.'", 'o': ['a', 'an', 'the', 'no article'], 'a': 'an'}, {'q': "Identify the adjective: 'The large elephant walked slowly.'", 'o': ['elephant', 'walked', 'large', 'slowly'], 'a': 'large'}, {'q': "What is the comparative form of 'bad'?", 'o': ['badder', 'worse', 'worst', 'more bad'], 'a': 'worse'}, {'q': "What is the superlative form of 'beautiful'?", 'o': ['beautifulest', 'more beautiful', 'most beautiful', 'beautifuler'], 'a': 'most beautiful'}, {'q': "Complete the sentence: 'This exam is ___ than the last one.'", 'o': ['easy', 'easier', 'easiest', 'more easy'], 'a': 'easier'}, {'q': 'Which word is an adjective?', 'o': ['quickly', 'happiness', 'bright', 'sing'], 'a': 'bright'}, {'q': "Complete the sentence: 'She is the ___ runner in our class.'", 'o': ['fast', 'faster', 'fastest', 'more fast'], 'a': 'fastest'}, {'q': "Find the opposite of 'heavy':", 'o': ['light', 'soft', 'thin', 'weak'], 'a': 'light'}, {'q': "Your mother's sister is your ___.", 'o': ['uncle', 'aunt', 'cousin', 'grandmother'], 'a': 'aunt'}, {'q': 'A male child is a ___.', 'o': ['daughter', 'son', 'brother', 'father'], 'a': 'son'}, {'q': 'Your father and mother are your ___.', 'o': ['children', 'grandparents', 'parents', 'uncles'], 'a': 'parents'}, {'q': 'A female child is a ___.', 'o': ['son', 'daughter', 'sister', 'mother'], 'a': 'daughter'}, {'q': "Your brother's daughter is your ___.", 'o': ['niece', 'nephew', 'cousin', 'aunt'], 'a': 'niece'}, {'q': "Your brother's son is your ___.", 'o': ['niece', 'nephew', 'cousin', 'uncle'], 'a': 'nephew'}, {'q': "Your mother's father is your ___.", 'o': ['uncle', 'father', 'grandfather', 'brother'], 'a': 'grandfather'}, {'q': "Which word contains a short 'a' sound?", 'o': ['cat', 'cake', 'car', 'call'], 'a': 'cat'}, {'q': "Which word contains a short 'e' sound?", 'o': ['bed', 'bead', 'bee', 'her'], 'a': 'bed'}, {'q': "Which word contains a short 'i' sound?", 'o': ['sit', 'site', 'side', 'sir'], 'a': 'sit'}, {'q': "Which word contains a short 'o' sound?", 'o': ['hop', 'hope', 'home', 'boat'], 'a': 'hop'}, {'q': "Which word contains a short 'u' sound?", 'o': ['cup', 'cube', 'use', 'blue'], 'a': 'cup'}, {'q': 'Identify the word with a short vowel sound:', 'o': ['pin', 'pine', 'pain', 'peen'], 'a': 'pin'}, {'q': 'Identify the word with a short vowel sound:', 'o': ['not', 'note', 'noon', 'know'], 'a': 'not'}, {'q': "What is the past tense of 'go'?", 'o': ['goed', 'gone', 'went', 'goes'], 'a': 'went'}, {'q': "What is the past participle of 'go'?", 'o': ['went', 'gone', 'going', 'goed'], 'a': 'gone'}, {'q': "What is the past tense of 'see'?", 'o': ['seen', 'saw', 'sees', 'seed'], 'a': 'saw'}, {'q': "What is the past participle of 'see'?", 'o': ['saw', 'seen', 'seeing', 'seed'], 'a': 'seen'}, {'q': "What is the past tense of 'eat'?", 'o': ['ate', 'eaten', 'eats', 'ated'], 'a': 'ate'}, {'q': "What is the past participle of 'eat'?", 'o': ['ate', 'eaten', 'eating', 'eat'], 'a': 'eaten'}, {'q': "What is the past tense of 'take'?", 'o': ['taken', 'took', 'takes', 'taked'], 'a': 'took'}, {'q': "What is the past participle of 'take'?", 'o': ['took', 'taken', 'taking', 'take'], 'a': 'taken'}, {'q': "What is the past tense of 'write'?", 'o': ['written', 'wrote', 'writes', 'writed'], 'a': 'wrote'}, {'q': "What is the past participle of 'write'?", 'o': ['wrote', 'written', 'writing', 'write'], 'a': 'written'}, {'q': "Complete: 'Could you please ___ my keys from the kitchen?'", 'o': ['fetch', 'bet', 'already', 'yet'], 'a': 'fetch'}, {'q': "Complete: 'I ___ you can't solve this puzzle!'", 'o': ['fetch', 'bet', 'wonder', 'already'], 'a': 'bet'}, {'q': "Complete: 'I have ___ finished my homework.'", 'o': ['yet', 'already', 'fetch', 'bet'], 'a': 'already'}, {'q': "Complete: 'Have you eaten dinner ___?'", 'o': ['already', 'yet', 'fetch', 'bet'], 'a': 'yet'}, {'q': "Complete: 'I ___ you will come to the party tonight.'", 'o': ['wonder if', 'already', 'yet', 'fetch'], 'a': 'wonder if'}, {'q': "What does 'fetch' mean?", 'o': ['To throw away', 'To go and get something', 'To bet money', 'To sleep'], 'a': 'To go and get something'}, {'q': "Complete: 'The train hasn't arrived ___.'", 'o': ['already', 'yet', 'bet', 'wonder'], 'a': 'yet'}, {'q': "Complete: 'They have ___ left the building.'", 'o': ['yet', 'already', 'fetch', 'wonder'], 'a': 'already'}, {'q': "Complete: 'I ___ it is going to rain tomorrow.'", 'o': ['wonder if', 'already', 'yet', 'bet'], 'a': 'wonder if'}, {'q': "Complete: 'He lost the ___ on the football match.'", 'o': ['fetch', 'bet', 'already', 'yet'], 'a': 'bet'}, {'q': "Complete: 'The book is ___ the table.'", 'o': ['in', 'on', 'at', 'underneath'], 'a': 'on'}, {'q': "Complete: 'She is arriving ___ 5 o'clock.'", 'o': ['in', 'on', 'at', 'for'], 'a': 'at'}, {'q': "Complete: 'We live ___ Kinshasa.'", 'o': ['in', 'on', 'at', 'by'], 'a': 'in'}, {'q': "Complete: 'He jumped ___ the swimming pool.'", 'o': ['into', 'on', 'at', 'over'], 'a': 'into'}, {'q': "Complete: 'The cat is hiding ___ the bed.'", 'o': ['on', 'under', 'through', 'between'], 'a': 'under'}, {'q': "Complete: 'She walked ___ the bridge to cross the river.'", 'o': ['under', 'across', 'at', 'in'], 'a': 'across'}, {'q': "Complete: 'I am good ___ English.'", 'o': ['at', 'in', 'on', 'for'], 'a': 'at'}, {'q': "Complete: 'She ___ her homework every evening.'", 'o': ['do', 'does', 'doing', 'didne'], 'a': 'does'}, {'q': "Complete: 'I ___ speak three languages fluently.'", 'o': ['can', 'cans', 'to can', 'am can'], 'a': 'can'}, {'q': "Complete: 'They ___ students at academia.higherjess.com.'", 'o': ['is', 'am', 'are', 'be'], 'a': 'are'}, {'q': "Complete: 'He ___ to the market every Saturday.'", 'o': ['go', 'goes', 'gone', 'going'], 'a': 'goes'}, {'q': "Complete: '___ you like chocolate?'", 'o': ['Do', 'Does', 'Are', 'Can'], 'a': 'Do'}, {'q': "Complete: 'Yesterday, we ___ to the beach.'", 'o': ['go', 'goes', 'went', 'going'], 'a': 'went'}, {'q': "Complete: 'I ___ tired today.'", 'o': ['is', 'am', 'are', 'be'], 'a': 'am'}, {'q': "Complete: 'She ___ swim when she was five.'", 'o': ['can', 'could', 'cans', 'be able to'], 'a': 'could'}, {'q': "Complete: 'What ___ you doing right now?'", 'o': ['is', 'am', 'are', 'do'], 'a': 'are'}, {'q': "Complete: 'We ___ our best to pass the exam.'", 'o': ['do', 'does', 'doing', 'did'], 'a': 'do'}, {'q': "Complete: 'Look at those dark clouds! It ___ rain.'", 'o': ['will', 'is going to', 'goes to', 'will be'], 'a': 'is going to'}, {'q': "Complete: 'I think it ___ rain tomorrow.'", 'o': ['will', 'is going to', 'goes to', 'shall'], 'a': 'will'}, {'q': "Complete: 'I ___ travel to Paris next month. I already bought my ticket.'", 'o': ['will', 'am going to', 'go to', 'will be'], 'a': 'am going to'}, {'q': "Complete: 'The phone is ringing. I ___ answer it!'", 'o': ['will', 'am going to', 'going to', 'shall'], 'a': 'will'}, {'q': "Complete: 'What are your plans for the weekend? I ___ watch a movie.'", 'o': ['will', 'am going to', 'goes to', 'will watch'], 'a': 'am going to'}, {'q': "Complete: 'I promise I ___ help you with your chores.'", 'o': ['will', 'am going to', 'going to', 'help'], 'a': 'will'}, {'q': "Complete: 'Watch out! You ___ drop that glass!'", 'o': ['will', 'are going to', 'going to', 'drop'], 'a': 'are going to'}, {'q': "Complete: 'In the year 2050, cars ___ fly.'", 'o': ['will', 'are going to', 'going to', 'flies'], 'a': 'will'}, {'q': "Complete: 'They ___ buy a new house next year. They are saving money for it.'", 'o': ['will', 'are going to', 'going to', 'will buy'], 'a': 'are going to'}, {'q': "Complete: 'I ___ meet you at the station if you want.'", 'o': ['will', 'am going to', 'going to', 'meeting'], 'a': 'will'}, {'q': 'Which fruit is yellow and curved?', 'o': ['Apple', 'Banana', 'Strawberry', 'Orange'], 'a': 'Banana'}, {'q': 'Which fruit is known for being red or green and crunchy?', 'o': ['Apple', 'Banana', 'Grape', 'Mango'], 'a': 'Apple'}, {'q': 'Which fruit is small, round, and used to make wine?', 'o': ['Orange', 'Grape', 'Pineapple', 'Peach'], 'a': 'Grape'}, {'q': 'Which fruit has a hard, spiky shell and sweet yellow flesh inside?', 'o': ['Watermelon', 'Pineapple', 'Coconut', 'Banana'], 'a': 'Pineapple'}, {'q': 'Which fruit is orange and rich in Vitamin C?', 'o': ['Orange', 'Apple', 'Lemon', 'Pear'], 'a': 'Orange'}, {'q': 'Which fruit is large, green on the outside, and red on the inside with black seeds?', 'o': ['Melon', 'Watermelon', 'Papaya', 'Guava'], 'a': 'Watermelon'}, {'q': 'Which fruit is yellow, sour, and often added to tea?', 'o': ['Lemon', 'Orange', 'Banana', 'Mango'], 'a': 'Lemon'}, {'q': "Choose the correct article: 'She is studying at ___ university.'", 'o': ['a', 'an', 'the', 'no article'], 'a': 'a'}, {'q': "Find the adjective in this sentence: 'Mr Baby is a dedicated student.'", 'o': ['Mr Baby', 'dedicated', 'student', 'is'], 'a': 'dedicated'}, {'q': "Macha-Ruth is Jessy's student. Jessy is Macha-Ruth's ___.", 'o': ['teacher', 'mother', 'sister', 'daughter'], 'a': 'teacher'}, {'q': "Which word has a short 'a' sound?", 'o': ['bag', 'bake', 'ball', 'base'], 'a': 'bag'}, {'q': "What is the past tense of 'fetch'?", 'o': ['fetch', 'fetched', 'fetching', 'fetches'], 'a': 'fetched'}, {'q': "Complete: 'Christian hasn't finished his exam ___.'", 'o': ['already', 'yet', 'bet', 'wonder'], 'a': 'yet'}, {'q': "Complete: 'Bozy wonders ___ the exam will be difficult.'", 'o': ['if', 'yet', 'already', 'at'], 'a': 'if'}, {'q': "Complete: 'Keren is sitting ___ Christian and Bozy.'", 'o': ['among', 'between', 'through', 'in'], 'a': 'between'}, {'q': "Complete: 'We ___ to church every Sunday.'", 'o': ['goes', 'go', 'going', 'gone'], 'a': 'go'}, {'q': "Complete: 'I ___ see you tomorrow at academia.higherjess.com!'", 'o': ['will', 'going to', 'am', 'do'], 'a': 'will'}, {'q': 'Which of these is NOT a fruit?', 'o': ['Mango', 'Potato', 'Avocado', 'Cherry'], 'a': 'Potato'}, {'q': "What is the past participle of 'do'?", 'o': ['did', 'done', 'doing', 'does'], 'a': 'done'}, {'q': "What is the past participle of 'be'?", 'o': ['was', 'were', 'been', 'being'], 'a': 'been'}, {'q': "Complete: 'I ___ you can't eat 5 apples in one minute!'", 'o': ['fetch', 'bet', 'already', 'yet'], 'a': 'bet'}, {'q': "Complete: 'They have ___ arrived in Kinshasa.'", 'o': ['yet', 'already', 'wonder', 'bet'], 'a': 'already'}, {'q': "Which word contains a short 'u' sound?", 'o': ['sun', 'soon', 'suit', 'sure'], 'a': 'sun'}, {'q': "Complete: 'The keys are ___ my pocket.'", 'o': ['on', 'in', 'at', 'over'], 'a': 'in'}, {'q': "What is the comparative form of 'good'?", 'o': ['gooder', 'best', 'better', 'more good'], 'a': 'better'}];
+
+        const setupSection = document.getElementById('setup-section');
+        const quizSection = document.getElementById('quiz-section');
+        const resultSection = document.getElementById('result-section');
+        const studentSelect = document.getElementById('student-select');
+        const startBtn = document.getElementById('start-btn');
+        const studentDisplay = document.getElementById('student-display');
+        const questionsWrapper = document.getElementById('questions-wrapper');
+        const quizForm = document.getElementById('quiz-form');
+        const scoreDisplay = document.getElementById('score-display');
+        const resultWelcome = document.getElementById('result-welcome');
+        const resultFeedback = document.getElementById('result-feedback');
+        const progressFill = document.getElementById('progress-fill');
+        const progressText = document.getElementById('progress-text');
+        const reviewBtn = document.getElementById('review-btn');
+
+        let currentStudent = "";
+
+        // Start Quiz
+        startBtn.addEventListener('click', () => {
+            currentStudent = studentSelect.value;
+            if (!currentStudent) {
+                alert('Please select your name before starting.');
+                return;
+            }
+            setupSection.classList.add('hidden');
+            quizSection.classList.remove('hidden');
+            studentDisplay.innerText = "Student: " + currentStudent;
+            renderQuestions();
+            updateProgress();
+        });
+
+        // Render 100 questions
+        function renderQuestions() {
+            questionsWrapper.innerHTML = "";
+            questions.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `q-card-${index}`;
+
+                const qText = document.createElement('div');
+                qText.className = 'question-text';
+                qText.innerText = `${index + 1}. ${q.q}`;
+                card.appendChild(qText);
+
+                const optionsContainer = document.createElement('div');
+                optionsContainer.className = 'options-container';
+
+                q.o.forEach(option => {
+                    const label = document.createElement('label');
+                    label.className = 'option-label';
+                    
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `question-${index}`;
+                    radio.value = option;
+                    radio.required = true;
+                    
+                    radio.addEventListener('change', updateProgress);
+
+                    label.appendChild(radio);
+                    label.appendChild(document.createTextNode(option));
+                    optionsContainer.appendChild(label);
+                });
+
+                card.appendChild(optionsContainer);
+                questionsWrapper.appendChild(card);
+            });
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const total = questions.length;
+            let answered = 0;
+            for(let i=0; i<total; i++) {
+                const checked = document.querySelector(`input[name="question-${i}"]:checked`);
+                if(checked) answered++;
+            }
+            const percentage = (answered / total) * 100;
+            progressFill.style.width = percentage + '%';
+            progressText.innerText = `Answered: ${answered} of ${total}`;
+        }
+
+        // Handle Submission
+        quizForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let score = 0;
+
+            questions.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+                if (selected && selected.value === q.a) {
+                    score++;
+                }
+            });
+
+            quizSection.classList.add('hidden');
+            resultSection.classList.remove('hidden');
+
+            scoreDisplay.innerText = `${score} / ${questions.length}`;
+            resultWelcome.innerText = `Thank you for completing the exam, ${currentStudent}!`;
+            
+            if (score >= 85) {
+                resultFeedback.innerText = "Excellent work! Splendid job! 🌟";
+                resultFeedback.style.color = "var(--success-color)";
+            } else if (score >= 50) {
+                resultFeedback.innerText = "Good effort! Keep practicing to improve. 👍";
+                resultFeedback.style.color = "var(--secondary-color)";
+            } else {
+                resultFeedback.innerText = "Please review the course material and try again. You can do it! 💪";
+                resultFeedback.style.color = "var(--error-color)";
+            }
+        });
+
+        // Review mode
+        reviewBtn.addEventListener('click', () => {
+            resultSection.classList.add('hidden');
+            quizSection.classList.remove('hidden');
+            document.getElementById('submit-btn').classList.add('hidden');
+            
+            questions.forEach((q, index) => {
+                const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+                const labels = document.querySelectorAll(`#q-card-${index} .option-label`);
+                
+                labels.forEach(label => {
+                    const input = label.querySelector('input');
+                    input.disabled = true; // Disable changes during review
+                    
+                    if (input.value === q.a) {
+                        label.classList.add('feedback-correct');
+                    }
+                    if (selected && selected.value === input.value && selected.value !== q.a) {
+                        label.classList.add('feedback-wrong');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
